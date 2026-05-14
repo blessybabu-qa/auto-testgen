@@ -4,11 +4,10 @@ stages:
 deploy_to_railway:
   stage: deploy
   image: node:18
-  before_script:
-    - npm install -g @railway/cli
   script:
-    - railway up --service $RAILWAY_SERVICE_ID --environment $RAILWAY_ENVIRONMENT_ID --detach
-  environment:
-    name: production
+    - npm install -g @railway/cli
+    - export RAILWAY_TOKEN=$RAILWAY_TOKEN
+    - railway whoami
+    - railway up --service $RAILWAY_SERVICE_ID --detach
   only:
     - main
